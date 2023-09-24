@@ -1,7 +1,7 @@
 
-#MoodSense App
+# MoodSense App
 
-##Description
+## Description
 The camera on your shiny new phone can sense a user’s mood based on their facial features, where
 mood can be characterized as either happy, sad or neutral to start with. 
 
@@ -19,7 +19,7 @@ happy.
 * Pandas
 * Geopy
 
-##Features
+## Features
 Current:
 * JSON Web Token Authentication 
 * Add/View/Edit/Delete User Information
@@ -33,21 +33,27 @@ To-Do:
 * Password Reset option
 * URLs (HATEOAS)
 
-##Installation
+## Installation
 
 The libraries are available on PyPI, and can be installed with pip:
 ```shell
 pip install -r requirements.txt
 ```
-(The requirements.txt file is located in the `/app` dir)
+(The requirements.txt file is located in the root dir)
 
-##Data Model and Persistence 
+### Initialize the environment variables
+
+* Update the variables inside the `.env` file
+  * Note: The value of `JWT_SECRET_KEY` can be anything
+* The `ENV_FILE_LOCATION` is the environment variable which should store the location of .env file relative to app.py
+  * To set this value, run the command: `export ENV_FILE_LOCATION=./.env`
+
+## Data Model and Persistence 
 
 The application uses a SQLite database to store data. The data is stored in 3 tables:
 * `users_user`
   * fields: 
   ```json 
-
         id: int
     first_name: str
     last_name: str
@@ -91,7 +97,7 @@ An example of a general workflow:
 4. User uploads capture information using `api/users/<user_id>/uploads`
 5. User can GET analysis of their uploads via `/api/users/<user_id>/states` and/or `users/<user_id>/proximity`
 
-###Authentication
+### Authentication
 
 #### Login
 API clients authenticate with the app, which generates an access token that must be included as a header in all subsequent API requests.
@@ -101,12 +107,11 @@ API clients authenticate with the app, which generates an access token that must
 **Parameters**:
 * Headers:
   * Content-Type: `application/json`
-  * Authorization: Bearer token
 * Body
   * `email` (Required)
   * `password`(Required)
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -140,7 +145,7 @@ Parameters:
   * `first_name` (Optional)
   * `last_name` (Optional)
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -207,7 +212,7 @@ Parameters:
   * `email`
   * `password`
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -249,7 +254,7 @@ Parameters:
   * `lat` - latitude (required)
   * `long` - longitude (required)
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -280,7 +285,7 @@ Parameters:
 * Headers:
   * Authorization: Bearer token
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -316,7 +321,7 @@ Parameters:
 * Body:
   * `id` - upload id  (required)
     
-####Example:
+#### Example:
 
 Request:
 ```shell
@@ -342,7 +347,7 @@ Parameters:
 
   * Authorization: Bearer token
     
-####Example:
+### Example:
 
 Request:
 ```shell
@@ -375,7 +380,7 @@ Parameters:
 * Headers:
   * Authorization: Bearer token
     
-####Example:
+#### Example:
 
 Request:
 ```shell

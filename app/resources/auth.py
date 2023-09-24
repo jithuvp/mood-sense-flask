@@ -11,6 +11,11 @@ import datetime
 class SignupApi(Resource):
     def post(self):
         body = request.get_json()
+        required_fields = ['email', 'password']
+    
+        for field in required_fields:
+            if field not in body:
+                abort(400, message=f"Missing argument '{field}' in the body...")
         if User.query.filter_by(email=body['email']).first() is not None:
             abort(400,  message="User already exists. Please Login...")
 
@@ -24,7 +29,10 @@ class LoginApi(Resource):
     def post(self):
         body = request.get_json()
         user = User.query.filter_by(email=body['email']).first()
-        authorized = user.check_password(body.get('password'))
+        try:
+            authorized = user.check_password(body.get('password'))
+        except Exception as e:
+           abort(401, message="Please enter the password..")
         if not authorized:
             abort(401, message="Email or password invalid")
 

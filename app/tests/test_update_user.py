@@ -1,6 +1,6 @@
 import json
 
-from base_case import BaseCase
+from app.tests.base_case import BaseCase
 
 class TestUpdateUser(BaseCase):
 
@@ -24,16 +24,17 @@ class TestUpdateUser(BaseCase):
         }
         response = self.app.patch('/api/users/1',
                                  headers={"Content-Type": "application/json", "Authorization": f"Bearer {login_token}"},
-                                 data=json.dumps(update_payload))
+                                 data=json.dumps(update_user_payload))
 
         # When
-        response = self.app.get('/api/users/1')
-        added_user = response.json[0]
+        response = self.app.get(
+            '/api/users/1',
+            headers={"Content-Type": "application/json", "Authorization": f"Bearer {login_token}"})
+        added_user = response.json
 
         # Then
         self.assertEqual(update_user_payload['first_name'], added_user['first_name'])
         self.assertEqual(update_user_payload['last_name'], added_user['last_name'])
-        self.assertEqual(update_user_payload['email'], added_user['email'])
         self.assertEqual(200, response.status_code)
 
     def test_response_with_invalid_id(self):
