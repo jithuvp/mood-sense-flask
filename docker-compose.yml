@@ -1,0 +1,12 @@
+services:
+  moodsense:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+    image: jpcodes13/moodsense
+    environment:
+      - ENV_FILE_LOCATION=./.env
+
+    ports:
+      - 3000:3000
